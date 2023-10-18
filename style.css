@@ -19,6 +19,9 @@ body
 {
     background: #f4f2ef;
     background-image: url(/Images/Gradient.png);
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-attachment: fixed; 
 
 }
 
