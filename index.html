@@ -1,13 +1,387 @@
 <!DOCTYPE html>
-<html lang="en">
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]>      <html class="no-js"> <!--<![endif]-->
+<html>
   <head>
-    <meta charset="utf-8">
-    <meta name="description" content="">
-    <meta name="author" content="">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Riyadh 2023</title>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <title></title>
+    <meta name="description" content="" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="stylesheet" href="style.css" />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap"
+      rel="stylesheet"
+    />
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <link
+      href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css"
+      rel="stylesheet"
+    />
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
   </head>
+
   <body>
-    <p>Riyadh Air Show 2023 microsite</p>
+    <!-- <video autoplay muted loop id="myVideo">
+      <source src="Videos/RiyadhAir.mp4" type="video/mp4" />
+      Your browser does not support HTML5 video.
+    </video> -->
+
+    <div class="container">
+      <!-- <p style="color: #cd2e00">Riyadh Air</p> -->
+      <img
+        src="Images/RiyadhLogoPurple.png"
+        width="200px"
+        style="vertical-align: bottom; margin-left: 25px"
+      />
+      <!-- <p style="font-size: 15px; text-align: center">REGISTRATION</p> -->
+
+      <input
+        type="text"
+        id="firstName"
+        maxlength="24"
+        required
+        placeholder="Firstname"
+      />
+      <input
+        type="text"
+        id="lastName"
+        maxlength="24"
+        required
+        placeholder="Lastname"
+      />
+      <input
+        type="email"
+        id="email"
+        maxlength="42"
+        required
+        placeholder="Email"
+      />
+
+      <!-- <label>Nationality: </label> -->
+      <select required name="nationality" id="nationality">
+        <option value="">Nationality</option>
+      </select>
+
+      <p id="notification" style="color: black; font-weight: 300"></p>
+
+      <button style="margin-top: 25px" onclick="generateQR()">SUBMIT</button>
+    </div>
+
+    <script>
+      const countries = [
+        "Afghanistan",
+        "Albania",
+        "Algeria",
+        "Andorra",
+        "Angola",
+        "Antigua and Deps",
+        "Argentina",
+        "Armenia",
+        "Australia",
+        "Austria",
+        "Azerbaijan",
+        "Bahamas",
+        "Bahrain",
+        "Bangladesh",
+        "Barbados",
+        "Belarus",
+        "Belgium",
+        "Belize",
+        "Benin",
+        "Bhutan",
+        "Bolivia",
+        "Bosnia and Herzegovina",
+        "Botswana",
+        "Brazil",
+        "Brunei",
+        "Bulgaria",
+        "Burkina Faso",
+        "Burundi",
+        "Cambodia",
+        "Cameroon",
+        "Canada",
+        "Cape Verde",
+        "Central African Republic",
+        "Chile",
+        "China",
+        "Columbia",
+        "Comoros",
+        "Republic of Congo",
+        "Democratic Republic of Congo",
+        "Democratic Republic of Korea",
+        "Costa Rica",
+        "Croatia",
+        "Cuba",
+        "Cyprus",
+        "Czech Republic",
+        "Denmark",
+        "Djibouti",
+        "Dominica",
+        "Dominican Republic",
+        "East Timor",
+        "Ecuador",
+        "Egypt",
+        "El Salvador",
+        "Equatorial Guinea",
+        "Eritrea",
+        "Estonia",
+        "Ethiopia",
+        "Federated States of Micronesia",
+        "Fiji",
+        "Finland",
+        "France",
+        "Gabon",
+        "Gambia",
+        "Georgia",
+        "Germany",
+        "Ghana",
+        "Greece",
+        "Greneda",
+        "Guinea",
+        "Guinea Bissau",
+        "Guyana",
+        "Haiti",
+        "Honduras",
+        "Hungary",
+        "Iceland",
+        "India",
+        "Indonesia",
+        "Iran",
+        "Iraq",
+        "Ireland",
+        "Israel",
+        "Italy",
+        "Jamaica",
+        "Japan",
+        "Jordan",
+        "Kazakhstan",
+        "Kenya",
+        "Kiribiti",
+        "Kosovo",
+        "Kuwait",
+        "Kyrgyzstan",
+        "Laos",
+        "Lebanon",
+        "Lesotho",
+        "Liberia",
+        "Libya",
+        "Liechtenstein",
+        "Lithuania",
+        "Luxembourg",
+        "Macedonia",
+        "Madagascar",
+        "Malawi",
+        "Malasiya",
+        "Maldives",
+        "Mali",
+        "Malta",
+        "Marshall Island",
+        "Mauritiana",
+        "Mauritius",
+        "Mexico",
+        "Moldova",
+        "Monaco",
+        "Mongolia",
+        "Montenegro",
+        "Morocco",
+        "Mozambique",
+        "Myanmar",
+        "Namibia",
+        "Nauru",
+        "Nepal",
+        "Netherlands",
+        "New Zealand",
+        "Nicaragua",
+        "Niger",
+        "Nigeria",
+        "Norway",
+        "Oman",
+        "Pakistan",
+        "Palau",
+        "Panama",
+        "Papua New Guinea",
+        "Paraguay",
+        "Peru",
+        "Philippines",
+        "Poland",
+        "Portugal",
+        "Qatar",
+        "Romania",
+        "Russia",
+        "Rawanda",
+        "Saint Kitts and Nevis",
+        "Saint Lucia",
+        "Saint Vincent and Grenadines",
+        "Samoa",
+        "San Marino",
+        "Sao Tome & Principe",
+        "Saudi Arabia",
+        "Senegal",
+        "Serbia",
+        "Seychelles",
+        "Sierra Leone",
+        "Singapore",
+        "Slovakia",
+        "Slovenia",
+        "Solomon Island",
+        "Somalia",
+        "South Africa",
+        "Soiuth Sudan",
+        "South Korea",
+        "Spain",
+        "Sri Lanka",
+        "Sudan",
+        "Suriname",
+        "Swaziland",
+        "Sweden",
+        "Switzerland",
+        "Syria",
+        "Taiwan",
+        "Tajikistan",
+        "Tanzania",
+        "Thailand",
+        "Togo",
+        "Tonga",
+        "Trinidad and Tobago",
+        "Tunisia",
+        "Turkey",
+        "Turkmenistan",
+        "Tuvalu",
+        "Uganda",
+        "Ukraine",
+        "United Arab Emirates",
+        "United Kingdom",
+        "United States of America",
+        "Uruguay",
+        "Uzbekistan",
+        "Vanuatu",
+        "Vatican City",
+        "Venezuela",
+        "Vietnam",
+        "Yemen",
+        "Zambia",
+        "Zimbabwe",
+      ];
+
+      let select = document.getElementById("nationality");
+
+      console.log(select);
+
+      countries.forEach((country) => {
+        const option = new Option(country, country);
+
+        select.appendChild(option);
+      });
+    </script>
+
+    <script
+      type="text/javascript"
+      src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"
+    ></script>
+    <script type="text/javascript">
+      (function () {
+        emailjs.init("D7GGwMsgzyM9zjIQP");
+      })();
+    </script>
+
+    <script>
+      $(function () {
+        $("#nationality").select2();
+      });
+    </script>
+
+    <script>
+      const audio = new Audio();
+      audio.src = "Sound/SoundEffect.mp3";
+
+      let notification = document.getElementById("notification");
+
+      let imgbox = document.getElementById("imgbox");
+      let qrImage = document.getElementById("qrImage");
+      let firstName = document.getElementById("firstName");
+      let lastName = document.getElementById("lastName");
+      let email = document.getElementById("email");
+      let nationality = document.getElementById("nationality");
+
+      function generateQR() {
+        let firstNameText = firstName.value;
+        let lastNameText = lastName.value;
+        let emailText = email.value;
+        let nationalityText = nationality.value;
+        const d = new Date();
+        const e = new Date(d);
+        let date =
+          d.getDate() +
+          ":" +
+          (d.getMonth() + 1) +
+          ":" +
+          d.getFullYear() +
+          ":" +
+          e.getHours() +
+          ":" +
+          e.getMinutes();
+
+        let qrString = `${firstNameText}~${lastNameText}~${emailText}~${nationalityText}~${date}`;
+
+        console.log(qrString);
+
+        //ADD PHONE VALIDATION IF USING
+
+        if (
+          firstName.value == "" ||
+          lastName.value == "" ||
+          email.value == "" ||
+          nationality.value == ""
+        ) {
+          notification.innerText = "Please fill in all fields!";
+          return;
+        } else {
+          var validRegex =
+            /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
+          if (!email.value.match(validRegex)) {
+            notification.innerText = "Please enter valid email address";
+            return;
+          } else {
+            // audio.play();
+
+            // Generate QR code and send it to email
+
+            emailjs
+              .send("service_qs0f8mi", "template_teeyw7r", {
+                to_name: firstNameText,
+                from_name: "Riyadh Air - Dubai Airshow 2023",
+                image_url:
+                  "https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=" +
+                  qrString,
+                to_email: emailText,
+              })
+              .then(function (message) {
+                notification.innerText = "Email sent!";
+              });
+
+            // modal.style.display = "block";
+
+            firstName.value = "";
+            lastName.value = "";
+            email.value = "";
+            nationality.value = "";
+
+            setTimeout(loadSite, 2500);
+          }
+        }
+      }
+
+      function loadSite() {
+        console.log("Running");
+        window.open("https://www.riyadhair.com/en/");
+      }
+    </script>
   </body>
 </html>

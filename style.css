@@ -1,0 +1,181 @@
+@font-face {
+    font-family: "Quiche";
+    src: url(/Fonts/Quiche.ttf);
+
+    font-family: "Formula1";
+    src: url(/Fonts/Formula1.ttf);
+}
+
+*
+{
+
+    margin: 0;
+    padding:  0;
+    font-family: 'Poppins', sans-serif;
+    box-sizing:  border-box;
+}
+
+body
+{
+    background: #f4f2ef;
+    background-image: url(/Images/Gradient.png);
+
+}
+
+/* The Modal (background) */
+.modal {
+    display: none; /* Hidden by default */
+    position: fixed; /* Stay in place */
+    z-index: 1; /* Sit on top */
+    padding-top: 100px; /* Location of the box */
+    left: 0;
+    top: 0;
+    width: 50%; /* Full width */
+    height: 100%; /* Full height */
+    overflow: auto; /* Enable scroll if needed */
+    background-color: rgb(0,0,0); /* Fallback color */
+    background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+  }
+
+  /* Modal Content */
+.modal-content {
+    background-color: #fefefe;
+    margin: auto;
+    padding: 20px;
+    border: 1px solid #888;
+    width: 80%;
+  }
+
+  /* The Close Button */
+.close {
+    color: #aaaaaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+  }
+
+  
+.close:hover,
+.close:focus {
+  color: #000;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.container
+{
+    width: 300px;
+    height: 500px;
+    padding: 25px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -60%);
+    background: white;
+    border-radius: 10px;
+    box-shadow: 0 10px 10px;
+}
+
+.container p
+{
+
+    font-family: 'Lucida Sans'
+
+    /* font-weight: 600; */
+    /* font-size: 20px; */
+    /* margin-bottom: 8px; */
+    /* text-align: center; */
+    /* font-family: 'Bebas Neue', sans-serif; */
+    /* font-family: 'Quiche', sans-serif; */
+}
+
+.heading
+{
+    width: 400px;
+    height: 100px;
+    padding: 25px;
+    position: fixed;
+    border-radius: 7px;
+    left: 40%;
+    top: 10%;
+}
+
+.heading h2
+{
+    color: white;
+    font-family: 'Bebas Neue', sans-serif;
+    text-align: center;
+    font-size: 50px;
+
+
+}
+
+#notification
+{
+
+    font-weight: 600;
+    font-size: 14px;
+    text-align: center;
+    font-family: 'Bebas Neue', sans-serif;
+
+}
+
+.container input
+{
+    width: 100%;
+    height: 50px;
+    border: 1px solid gray;
+    padding: 10px;
+    margin: 10px 0 10px;
+}
+
+.container label
+{
+    font-size: 14px;
+    margin: 10px 0 50px;
+    padding: 10px;
+    font-family: 'Bebas Neue', sans-serif;
+}
+
+.container select
+{
+    width: 100%;
+    height: 50px;
+    border: 1px solid gray;
+    padding: 10px;
+    margin: 10px 0 50px;
+}
+
+.container button
+{
+
+    width: 100%;
+    height: 50px;
+    background: #240c54;
+    color: white;
+    border: none;
+    outline: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-weight: 500;
+
+
+}
+
+#myVideo {
+    position: fixed;
+    right: 0;
+    bottom: 0;
+    min-width: 100%; 
+    min-height: 100%;
+  }
+
+.footer {
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    background-color: #f4f2ef;
+    color: #1f1f27;
+    /* text-align: center; */
+ }
