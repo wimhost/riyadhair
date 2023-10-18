@@ -1,2 +1,2 @@
-# riyadhair
+# RiyadhAir
 Microsite for Riyadh Air Show
