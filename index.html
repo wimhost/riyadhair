@@ -298,9 +298,6 @@
     </script>
 
     <script>
-      const audio = new Audio();
-      audio.src = "Sound/SoundEffect.mp3";
-
       let notification = document.getElementById("notification");
 
       let imgbox = document.getElementById("imgbox");
@@ -349,8 +346,6 @@
             notification.innerText = "Please enter valid email address";
             return;
           } else {
-            // audio.play();
-
             // Generate QR code and send it to email
 
             emailjs
