@@ -42,37 +42,46 @@
       />
       <!-- <p style="font-size: 15px; text-align: center">REGISTRATION</p> -->
 
-      <input
-        type="text"
-        id="firstName"
-        maxlength="24"
-        required
-        placeholder="Firstname"
-      />
-      <input
-        type="text"
-        id="lastName"
-        maxlength="24"
-        required
-        placeholder="Lastname"
-      />
-      <input
-        type="email"
-        id="email"
-        maxlength="42"
-        required
-        placeholder="Email"
-      />
+      <form action="" id="RegForm">
+        <input
+          type="text"
+          id="firstName"
+          name="firstName"
+          maxlength="24"
+          required
+          placeholder="Firstname"
+        />
+        <input
+          type="text"
+          id="lastName"
+          name="lastName"
+          maxlength="24"
+          required
+          placeholder="Lastname"
+        />
+        <input
+          type="email"
+          id="email"
+          name="email"
+          maxlength="42"
+          required
+          placeholder="Email"
+        />
 
-      <!-- <label>Nationality: </label> -->
-      <select required name="nationality" id="nationality">
-        <option value="">Nationality</option>
-      </select>
+        <!-- <label>Nationality: </label> -->
+        <select required name="nationality" id="nationality">
+          <option value="">Nationality</option>
+        </select>
+      </form>
 
       <p id="notification" style="color: black; font-weight: 300"></p>
 
-      <button style="margin-top: 25px" onclick="generateQR()">SUBMIT</button>
+      <button style="margin-top: 25px" type="submit" onclick="SubmitButton()">
+        SUBMIT
+      </button>
     </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/firebase/7.14.1-0/firebase.js"></script>
 
     <script>
       const countries = [
@@ -272,8 +281,6 @@
 
       let select = document.getElementById("nationality");
 
-      console.log(select);
-
       countries.forEach((country) => {
         const option = new Option(country, country);
 
@@ -297,7 +304,45 @@
       });
     </script>
 
+    <!-- Firebase Database Script -->
     <script>
+      const firebaseConfig = {
+        apiKey: "AIzaSyARbwH_pSzqzGPK3Niyy0Y8yv6VEp8R448",
+        authDomain: "riyadhairregistration.firebaseapp.com",
+        databaseURL:
+          "https://riyadhairregistration-default-rtdb.firebaseio.com",
+        projectId: "riyadhairregistration",
+        storageBucket: "riyadhairregistration.appspot.com",
+        messagingSenderId: "197400582183",
+        appId: "1:197400582183:web:e8710ea0bfc1a3a0ee9602",
+        measurementId: "G-W47WWSJFV3",
+      };
+
+      //Initializing Firebase
+      firebase.initializeApp(firebaseConfig);
+
+      //Reference to the database
+      var regFormDB = firebase.database().ref("riyadairregistration");
+
+      const insertIntoDatabase = (fName, lName, email, nationality, date) => {
+        var newRegForm = regFormDB.push();
+
+        newRegForm.set({
+          FirstName: fName,
+          LastName: lName,
+          Email: email,
+          Nationality: nationality,
+          Timestamp: date,
+        });
+
+        console.log("Data uploaded");
+      };
+    </script>
+
+    <!-- Submit Button Script -->
+    <script>
+      //Script to generate QR code and send email with EmailJS
+
       let notification = document.getElementById("notification");
 
       let imgbox = document.getElementById("imgbox");
@@ -307,7 +352,7 @@
       let email = document.getElementById("email");
       let nationality = document.getElementById("nationality");
 
-      function generateQR() {
+      function SubmitButton() {
         let firstNameText = firstName.value;
         let lastNameText = lastName.value;
         let emailText = email.value;
@@ -327,7 +372,7 @@
 
         let qrString = `${firstNameText}~${lastNameText}~${emailText}~${nationalityText}~${date}`;
 
-        console.log(qrString);
+        // console.log(qrString);
 
         //ADD PHONE VALIDATION IF USING
 
@@ -346,6 +391,16 @@
             notification.innerText = "Please enter valid email address";
             return;
           } else {
+            //Upload Data to firebase Database
+
+            insertIntoDatabase(
+              firstNameText,
+              lastNameText,
+              emailText,
+              nationalityText,
+              date
+            );
+
             // Generate QR code and send it to email
 
             emailjs
@@ -368,13 +423,12 @@
             email.value = "";
             nationality.value = "";
 
-            setTimeout(loadSite, 2500);
+            setTimeout(loadSite, 3500);
           }
         }
       }
 
       function loadSite() {
-        console.log("Running");
         window.open("https://www.riyadhair.com/en/");
       }
     </script>
