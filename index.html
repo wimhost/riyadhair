@@ -71,7 +71,7 @@
         <select required name="language" id="language">
           <option value="">Language</option>
           <option value="English">English</option>
-          <option value="English">Arabic</option>
+          <option value="Arabic">Arabic</option>
         </select>
 
         <select
@@ -384,7 +384,7 @@
 
         let qrString = `${firstNameText}~${lastNameText}~${emailText}~${nationalityText}~${languageText}~${date}`;
 
-        // console.log(qrString);
+        console.log(qrString);
 
         //ADD PHONE VALIDATION IF USING
 
@@ -436,6 +436,7 @@
             lastName.value = "";
             email.value = "";
             nationality.value = "";
+            language.value = "";
 
             setTimeout(loadSite, 3500);
           }
