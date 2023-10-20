@@ -25,22 +25,22 @@
       rel="stylesheet"
     />
     <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/firebase/7.14.1-0/firebase.js"></script>
+    <script src="https://smtpjs.com/v3/smtp.js"></script>
+
+    <script
+      type="text/javascript"
+      src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"
+    ></script>
   </head>
 
   <body>
-    <!-- <video autoplay muted loop id="myVideo">
-      <source src="Videos/RiyadhAir.mp4" type="video/mp4" />
-      Your browser does not support HTML5 video.
-    </video> -->
-
     <div class="container">
-      <!-- <p style="color: #cd2e00">Riyadh Air</p> -->
       <img
         src="Images/RiyadhLogoPurple.png"
         width="200px"
         style="vertical-align: bottom; margin-left: 25px"
       />
-      <!-- <p style="font-size: 15px; text-align: center">REGISTRATION</p> -->
 
       <form action="" id="RegForm">
         <input
@@ -68,20 +68,26 @@
           placeholder="Email"
         />
 
-        <!-- <label>Nationality: </label> -->
-        <select required name="nationality" id="nationality">
+        <select required name="language" id="language">
+          <option value="">Language</option>
+          <option value="English">English</option>
+          <option value="English">Arabic</option>
+        </select>
+
+        <select
+          required
+          name="nationality"
+          id="nationality"
+          style="border: 1px solid gray"
+        >
           <option value="">Nationality</option>
         </select>
       </form>
 
-      <p id="notification" style="color: black; font-weight: 300"></p>
+      <p id="notification"></p>
 
-      <button style="margin-top: 25px" type="submit" onclick="SubmitButton()">
-        SUBMIT
-      </button>
+      <button type="submit" onclick="SubmitButton()">SUBMIT</button>
     </div>
-
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/firebase/7.14.1-0/firebase.js"></script>
 
     <script>
       const countries = [
@@ -288,10 +294,6 @@
       });
     </script>
 
-    <script
-      type="text/javascript"
-      src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"
-    ></script>
     <script type="text/javascript">
       (function () {
         emailjs.init("D7GGwMsgzyM9zjIQP");
@@ -324,7 +326,14 @@
       //Reference to the database
       var regFormDB = firebase.database().ref("riyadairregistration");
 
-      const insertIntoDatabase = (fName, lName, email, nationality, date) => {
+      const insertIntoDatabase = (
+        fName,
+        lName,
+        email,
+        nationality,
+        language,
+        date
+      ) => {
         var newRegForm = regFormDB.push();
 
         newRegForm.set({
@@ -332,6 +341,7 @@
           LastName: lName,
           Email: email,
           Nationality: nationality,
+          Language: language,
           Timestamp: date,
         });
 
@@ -351,12 +361,14 @@
       let lastName = document.getElementById("lastName");
       let email = document.getElementById("email");
       let nationality = document.getElementById("nationality");
+      let language = document.getElementById("language");
 
       function SubmitButton() {
         let firstNameText = firstName.value;
         let lastNameText = lastName.value;
         let emailText = email.value;
         let nationalityText = nationality.value;
+        let languageText = language.value;
         const d = new Date();
         const e = new Date(d);
         let date =
@@ -370,7 +382,7 @@
           ":" +
           e.getMinutes();
 
-        let qrString = `${firstNameText}~${lastNameText}~${emailText}~${nationalityText}~${date}`;
+        let qrString = `${firstNameText}~${lastNameText}~${emailText}~${nationalityText}~${languageText}~${date}`;
 
         // console.log(qrString);
 
@@ -380,7 +392,8 @@
           firstName.value == "" ||
           lastName.value == "" ||
           email.value == "" ||
-          nationality.value == ""
+          nationality.value == "" ||
+          language.value == ""
         ) {
           notification.innerText = "Please fill in all fields!";
           return;
@@ -398,6 +411,7 @@
               lastNameText,
               emailText,
               nationalityText,
+              languageText,
               date
             );
 
@@ -416,7 +430,7 @@
                 notification.innerText = "Email sent!";
               });
 
-            // modal.style.display = "block";
+            // SendEmail(firstNameText, emailText, qrString);
 
             firstName.value = "";
             lastName.value = "";
@@ -431,6 +445,24 @@
       function loadSite() {
         window.open("https://www.riyadhair.com/en/");
       }
+    </script>
+
+    <script>
+      //SMTPjs
+
+      // const SendEmail = (fName, email, qrString) => {
+      //   console.log("Sending Email");
+
+      //   Email.send({
+      //     Host: "smtp.elasticemail.com",
+      //     Username: "usman@wim.ae",
+      //     Password: "",
+      //     To: email,
+      //     From: "usman@wim.ae",
+      //     Subject: "This is the subject",
+      //     Body: "And this is the body",
+      //   }).then((message) => alert(message));
+      // };
     </script>
   </body>
 </html>
