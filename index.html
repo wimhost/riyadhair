@@ -74,14 +74,14 @@
           <option value="Arabic">Arabic</option>
         </select>
 
-        <select
+        <!-- <select
           required
           name="nationality"
           id="nationality"
           style="border: 1px solid gray"
         >
           <option value="">Nationality</option>
-        </select>
+        </select> -->
       </form>
 
       <p id="notification"></p>
@@ -89,7 +89,7 @@
       <button type="submit" onclick="SubmitButton()">SUBMIT</button>
     </div>
 
-    <script>
+    <!-- <script>
       const countries = [
         "Afghanistan",
         "Albania",
@@ -292,7 +292,7 @@
 
         select.appendChild(option);
       });
-    </script>
+    </script> -->
 
     <script type="text/javascript">
       (function () {
@@ -326,21 +326,13 @@
       //Reference to the database
       var regFormDB = firebase.database().ref("riyadairregistration");
 
-      const insertIntoDatabase = (
-        fName,
-        lName,
-        email,
-        nationality,
-        language,
-        date
-      ) => {
+      const insertIntoDatabase = (fName, lName, email, language, date) => {
         var newRegForm = regFormDB.push();
 
         newRegForm.set({
           FirstName: fName,
           LastName: lName,
           Email: email,
-          Nationality: nationality,
           Language: language,
           Timestamp: date,
         });
@@ -360,14 +352,14 @@
       let firstName = document.getElementById("firstName");
       let lastName = document.getElementById("lastName");
       let email = document.getElementById("email");
-      let nationality = document.getElementById("nationality");
+      // let nationality = document.getElementById("nationality");
       let language = document.getElementById("language");
 
       function SubmitButton() {
         let firstNameText = firstName.value;
         let lastNameText = lastName.value;
         let emailText = email.value;
-        let nationalityText = nationality.value;
+        // let nationalityText = nationality.value;
         let languageText = language.value;
         const d = new Date();
         const e = new Date(d);
@@ -382,7 +374,7 @@
           ":" +
           e.getMinutes();
 
-        let qrString = `${firstNameText}~${lastNameText}~${emailText}~${nationalityText}~${languageText}~${date}`;
+        let qrString = `${firstNameText}~${lastNameText}~${emailText}~${languageText}~${date}`;
 
         console.log(qrString);
 
@@ -392,7 +384,6 @@
           firstName.value == "" ||
           lastName.value == "" ||
           email.value == "" ||
-          nationality.value == "" ||
           language.value == ""
         ) {
           notification.innerText = "Please fill in all fields!";
@@ -410,7 +401,6 @@
               firstNameText,
               lastNameText,
               emailText,
-              nationalityText,
               languageText,
               date
             );
@@ -430,12 +420,9 @@
                 notification.innerText = "Email sent!";
               });
 
-            // SendEmail(firstNameText, emailText, qrString);
-
             firstName.value = "";
             lastName.value = "";
             email.value = "";
-            nationality.value = "";
             language.value = "";
 
             setTimeout(loadSite, 3500);
@@ -446,24 +433,6 @@
       function loadSite() {
         window.open("https://www.riyadhair.com/en/");
       }
-    </script>
-
-    <script>
-      //SMTPjs
-
-      // const SendEmail = (fName, email, qrString) => {
-      //   console.log("Sending Email");
-
-      //   Email.send({
-      //     Host: "smtp.elasticemail.com",
-      //     Username: "usman@wim.ae",
-      //     Password: "",
-      //     To: email,
-      //     From: "usman@wim.ae",
-      //     Subject: "This is the subject",
-      //     Body: "And this is the body",
-      //   }).then((message) => alert(message));
-      // };
     </script>
   </body>
 </html>
