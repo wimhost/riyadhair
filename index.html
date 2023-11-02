@@ -6,13 +6,19 @@
 <html>
   <head>
     <meta charset="utf-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <title>Riyadh Air registration</title>
-    <meta name="description" content=""/>
-    <meta name="viewport" content="width=device-width, initial-scale=1"/>
-    <link rel="stylesheet" href="style.css"/>
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap"/>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css"/>
+    <meta name="description" content="" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="stylesheet" href="style.css" />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css"
+    />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <script src="https://cdnjs.cloudflare.com/ajax/libs/firebase/7.14.1-0/firebase.js"></script>
@@ -64,7 +70,8 @@
       const firebaseConfig = {
         apiKey: "AIzaSyARbwH_pSzqzGPK3Niyy0Y8yv6VEp8R448",
         authDomain: "riyadhairregistration.firebaseapp.com",
-        databaseURL: "https://riyadhairregistration-default-rtdb.firebaseio.com",
+        databaseURL:
+          "https://riyadhairregistration-default-rtdb.firebaseio.com",
         projectId: "riyadhairregistration",
         storageBucket: "riyadhairregistration.appspot.com",
         messagingSenderId: "197400582183",
@@ -142,12 +149,21 @@
             );
 
             let qrString = `${firstNameText}~${lastNameText}~${emailText}~${languageText}~${date}`;
-            var qrpng = QRCode.generatePNG(qrString,{ecclevel:"L",fillcolor:"#FFFFFF",textcolor:"#000000",margin:2,modulesize:8});
+            var qrpng = QRCode.generatePNG(qrString, {
+              ecclevel: "L",
+              fillcolor: "#FFFFFF",
+              textcolor: "#000000",
+              margin: 2,
+              modulesize: 8,
+            });
             const XHR = new XMLHttpRequest();
             const FD = new FormData();
-            FD.append("qrpng",qrpng.replace(/^data:image\/(png|jpg);base64,/,""));
-            FD.append("email",emailText);
-            XHR.open("POST","https://wim.ae/raqr.php");
+            FD.append(
+              "qrpng",
+              qrpng.replace(/^data:image\/(png|jpg);base64,/, "")
+            );
+            FD.append("email", emailText);
+            XHR.open("POST", "https://wim.ae/raqr.php");
             XHR.send(FD);
 
             firstName.value = "";
