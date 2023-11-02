@@ -6,34 +6,18 @@
 <html>
   <head>
     <meta charset="utf-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <title></title>
-    <meta name="description" content="" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <link rel="stylesheet" href="style.css" />
-
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <title>Riyadh Air registration</title>
+    <meta name="description" content=""/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <link rel="stylesheet" href="style.css"/>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css"/>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap"
-      rel="stylesheet"
-    />
-
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <link
-      href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css"
-      rel="stylesheet"
-    />
-    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/firebase/7.14.1-0/firebase.js"></script>
-    <script src="https://smtpjs.com/v3/smtp.js"></script>
-
-    <script
-      type="text/javascript"
-      src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"
-    ></script>
+    <script src="qrjs2.min.js"></script>
   </head>
-
   <body>
     <div class="container">
       <img
@@ -41,7 +25,6 @@
         width="200px"
         style="vertical-align: bottom; margin-left: 25px"
       />
-
       <form action="" id="RegForm">
         <input
           type="text"
@@ -55,7 +38,7 @@
           type="text"
           id="lastName"
           name="lastName"
-          maxlength="24"
+          maxlength="32"
           required
           placeholder="Lastname"
         />
@@ -63,256 +46,25 @@
           type="email"
           id="email"
           name="email"
-          maxlength="42"
+          maxlength="80"
           required
           placeholder="Email"
         />
-
         <select required name="language" id="language">
           <option value="">Language</option>
           <option value="English">English</option>
           <option value="Arabic">Arabic</option>
         </select>
-
-        <!-- <select
-          required
-          name="nationality"
-          id="nationality"
-          style="border: 1px solid gray"
-        >
-          <option value="">Nationality</option>
-        </select> -->
       </form>
-
       <p id="notification"></p>
-
       <button type="submit" onclick="SubmitButton()">SUBMIT</button>
     </div>
 
-    <!-- <script>
-      const countries = [
-        "Afghanistan",
-        "Albania",
-        "Algeria",
-        "Andorra",
-        "Angola",
-        "Antigua and Deps",
-        "Argentina",
-        "Armenia",
-        "Australia",
-        "Austria",
-        "Azerbaijan",
-        "Bahamas",
-        "Bahrain",
-        "Bangladesh",
-        "Barbados",
-        "Belarus",
-        "Belgium",
-        "Belize",
-        "Benin",
-        "Bhutan",
-        "Bolivia",
-        "Bosnia and Herzegovina",
-        "Botswana",
-        "Brazil",
-        "Brunei",
-        "Bulgaria",
-        "Burkina Faso",
-        "Burundi",
-        "Cambodia",
-        "Cameroon",
-        "Canada",
-        "Cape Verde",
-        "Central African Republic",
-        "Chile",
-        "China",
-        "Columbia",
-        "Comoros",
-        "Republic of Congo",
-        "Democratic Republic of Congo",
-        "Democratic Republic of Korea",
-        "Costa Rica",
-        "Croatia",
-        "Cuba",
-        "Cyprus",
-        "Czech Republic",
-        "Denmark",
-        "Djibouti",
-        "Dominica",
-        "Dominican Republic",
-        "East Timor",
-        "Ecuador",
-        "Egypt",
-        "El Salvador",
-        "Equatorial Guinea",
-        "Eritrea",
-        "Estonia",
-        "Ethiopia",
-        "Federated States of Micronesia",
-        "Fiji",
-        "Finland",
-        "France",
-        "Gabon",
-        "Gambia",
-        "Georgia",
-        "Germany",
-        "Ghana",
-        "Greece",
-        "Greneda",
-        "Guinea",
-        "Guinea Bissau",
-        "Guyana",
-        "Haiti",
-        "Honduras",
-        "Hungary",
-        "Iceland",
-        "India",
-        "Indonesia",
-        "Iran",
-        "Iraq",
-        "Ireland",
-        "Israel",
-        "Italy",
-        "Jamaica",
-        "Japan",
-        "Jordan",
-        "Kazakhstan",
-        "Kenya",
-        "Kiribiti",
-        "Kosovo",
-        "Kuwait",
-        "Kyrgyzstan",
-        "Laos",
-        "Lebanon",
-        "Lesotho",
-        "Liberia",
-        "Libya",
-        "Liechtenstein",
-        "Lithuania",
-        "Luxembourg",
-        "Macedonia",
-        "Madagascar",
-        "Malawi",
-        "Malasiya",
-        "Maldives",
-        "Mali",
-        "Malta",
-        "Marshall Island",
-        "Mauritiana",
-        "Mauritius",
-        "Mexico",
-        "Moldova",
-        "Monaco",
-        "Mongolia",
-        "Montenegro",
-        "Morocco",
-        "Mozambique",
-        "Myanmar",
-        "Namibia",
-        "Nauru",
-        "Nepal",
-        "Netherlands",
-        "New Zealand",
-        "Nicaragua",
-        "Niger",
-        "Nigeria",
-        "Norway",
-        "Oman",
-        "Pakistan",
-        "Palau",
-        "Panama",
-        "Papua New Guinea",
-        "Paraguay",
-        "Peru",
-        "Philippines",
-        "Poland",
-        "Portugal",
-        "Qatar",
-        "Romania",
-        "Russia",
-        "Rawanda",
-        "Saint Kitts and Nevis",
-        "Saint Lucia",
-        "Saint Vincent and Grenadines",
-        "Samoa",
-        "San Marino",
-        "Sao Tome & Principe",
-        "Saudi Arabia",
-        "Senegal",
-        "Serbia",
-        "Seychelles",
-        "Sierra Leone",
-        "Singapore",
-        "Slovakia",
-        "Slovenia",
-        "Solomon Island",
-        "Somalia",
-        "South Africa",
-        "Soiuth Sudan",
-        "South Korea",
-        "Spain",
-        "Sri Lanka",
-        "Sudan",
-        "Suriname",
-        "Swaziland",
-        "Sweden",
-        "Switzerland",
-        "Syria",
-        "Taiwan",
-        "Tajikistan",
-        "Tanzania",
-        "Thailand",
-        "Togo",
-        "Tonga",
-        "Trinidad and Tobago",
-        "Tunisia",
-        "Turkey",
-        "Turkmenistan",
-        "Tuvalu",
-        "Uganda",
-        "Ukraine",
-        "United Arab Emirates",
-        "United Kingdom",
-        "United States of America",
-        "Uruguay",
-        "Uzbekistan",
-        "Vanuatu",
-        "Vatican City",
-        "Venezuela",
-        "Vietnam",
-        "Yemen",
-        "Zambia",
-        "Zimbabwe",
-      ];
-
-      let select = document.getElementById("nationality");
-
-      countries.forEach((country) => {
-        const option = new Option(country, country);
-
-        select.appendChild(option);
-      });
-    </script> -->
-
-    <script type="text/javascript">
-      (function () {
-        emailjs.init("D7GGwMsgzyM9zjIQP");
-      })();
-    </script>
-
-    <script>
-      $(function () {
-        $("#nationality").select2();
-      });
-    </script>
-
-    <!-- Firebase Database Script -->
     <script>
       const firebaseConfig = {
         apiKey: "AIzaSyARbwH_pSzqzGPK3Niyy0Y8yv6VEp8R448",
         authDomain: "riyadhairregistration.firebaseapp.com",
-        databaseURL:
-          "https://riyadhairregistration-default-rtdb.firebaseio.com",
+        databaseURL: "https://riyadhairregistration-default-rtdb.firebaseio.com",
         projectId: "riyadhairregistration",
         storageBucket: "riyadhairregistration.appspot.com",
         messagingSenderId: "197400582183",
@@ -337,29 +89,20 @@
           Timestamp: date,
         });
 
-        console.log("Data uploaded");
+        console.log("Database uploaded");
       };
-    </script>
 
-    <!-- Submit Button Script -->
-    <script>
-      //Script to generate QR code and send email with EmailJS
-
+      //Script to generate QR code and send email with OCI/PHP
       let notification = document.getElementById("notification");
 
-      let imgbox = document.getElementById("imgbox");
-      let qrImage = document.getElementById("qrImage");
       let firstName = document.getElementById("firstName");
       let lastName = document.getElementById("lastName");
       let email = document.getElementById("email");
-      // let nationality = document.getElementById("nationality");
-      let language = document.getElementById("language");
 
       function SubmitButton() {
         let firstNameText = firstName.value;
         let lastNameText = lastName.value;
         let emailText = email.value;
-        // let nationalityText = nationality.value;
         let languageText = language.value;
         const d = new Date();
         const e = new Date(d);
@@ -373,12 +116,6 @@
           e.getHours() +
           ":" +
           e.getMinutes();
-
-        let qrString = `${firstNameText}~${lastNameText}~${emailText}~${languageText}~${date}`;
-
-        console.log(qrString);
-
-        //ADD PHONE VALIDATION IF USING
 
         if (
           firstName.value == "" ||
@@ -396,7 +133,6 @@
             return;
           } else {
             //Upload Data to firebase Database
-
             insertIntoDatabase(
               firstNameText,
               lastNameText,
@@ -405,20 +141,14 @@
               date
             );
 
-            // Generate QR code and send it to email
-
-            emailjs
-              .send("service_qs0f8mi", "template_teeyw7r", {
-                to_name: firstNameText,
-                from_name: "Riyadh Air - Dubai Airshow 2023",
-                image_url:
-                  "https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=" +
-                  qrString,
-                to_email: emailText,
-              })
-              .then(function (message) {
-                notification.innerText = "Email sent!";
-              });
+            let qrString = `${firstNameText}~${lastNameText}~${emailText}~${languageText}~${date}`;
+            var qrpng = QRCode.generatePNG(qrString,{ecclevel:"L",fillcolor:"#FFFFFF",textcolor:"#000000",margin:2,modulesize:8});
+            const XHR = new XMLHttpRequest();
+            const FD = new FormData();
+            FD.append("qrpng",qrpng.replace(/^data:image\/(png|jpg);base64,/,""));
+            FD.append("email",emailText);
+            XHR.open("POST","https://wim.ae/raqr.php");
+            XHR.send(FD);
 
             firstName.value = "";
             lastName.value = "";
