@@ -16,7 +16,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <script src="https://cdnjs.cloudflare.com/ajax/libs/firebase/7.14.1-0/firebase.js"></script>
-    <script src="qrjs2.min.js"></script>
+    <script src="easy.qrcode.min.js"></script>
   </head>
   <body>
     <div class="container">
@@ -81,21 +81,24 @@
         notification.innerText = "Thank you for registering";
         insertIntoDatabase(firstNameText,lastNameText,emailText,languageText,date);
         let qrString = [firstNameText,lastNameText,emailText,languageText,date].join("~");
-        var qrpng = QRCode.generatePNG(qrString,{ecclevel:"L",fillcolor:"#000000",textcolor:"#240c54",margin:4,modulesize:8});
-        const XHR = new XMLHttpRequest();
-        const FD = new FormData();
-        XHR.onreadystatechange = function(){if(XHR.status==200){setTimeout(window.open("https://riyadhair.com/en/","_self"),3500);}};
-        FD.append("firstname",firstNameText);
-        FD.append("lastname",lastNameText);
-        FD.append("email",emailText);
-        FD.append("lang",languageText);
-        FD.append("qrpng",qrpng.replace(/^data:image\/png;base64,/, ""));
-        XHR.open("POST","https://wim.ae/app/riyadhair/raqr.php");
-        XHR.send(FD);
-        firstName.value = "";
-        lastName.value = "";
-        email.value = "";
-        language.value = "";
+        new QRCode(document.createElement('div'),{text:qrString,width:360,height:360,colorDark:"#240c54",colorLight:"#ffffff",logo:"data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiPz4KPHN2ZyB3aWR0aD0iNDIuODUiIGhlaWdodD0iNjMuOTk3IiBmaWxsPSJub25lIiB2ZXJzaW9uPSIxLjEiIHZpZXdCb3g9IjAgMCA0Mi44NSA2My45OTciIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CiA8ZyBmaWxsPSIjMjQwYzU0Ij4KICA8cGF0aCBkPSJtMjQuMTI2IDU4Ljg5M2MtMS40MDQ4IDAuMTgxMi0yLjgwMDcgMC4yNDY4LTQuMjA5NCAwLjIyNDktNi40MTM1LTAuMDQ2My0xMi44NjEtMy40MTA0LTE2LjE3OC05LjAyNC0xLjM2MjYtMi4yOTA3LTIuMTQzOC00LjkxNy0yLjMxMjgtNy41ODMxLTAuMDYwMTktMS4xODktMC4wOTYwNC0yLjQwMTItMC4xMjQyMi0zLjU4OS0wLjA4OTY0LTIuODEwMS0wLjAzODQyLTYuNzQzNi0wLjA3ODEyLTkuNjAxMi0wLjAwNzY4LTIuNzgzMS0wLjE2MTM2LTYuODQ3OC0wLjEzMzE4LTkuNTc4MSAwLjA1MTIyLTEuMDc3MiAwLjA5MzQ4LTIuMTg3OSAwLjMyMDE2LTMuMjUyM2gtMC4xMjgwN2MtMC4zMTUwNCAxLjA0OS0wLjU0NjgzIDIuMTIyNC0wLjY4MjU4IDMuMjExMi0wLjQwOTggMi43NTIyLTAuMzMxNjkgNi44MjA3LTAuMzk3IDkuNjE3OSAwIDIuODMzMi0wLjIyNjY3IDEyLjgwMy0wLjIwMTA2IDE0LjQ2IDAuMTY2NDggNS45ODkgMi44NzEyIDExLjk0MiA3LjUyODkgMTUuNzgyIDQuNzc0MyAzLjk4NSAxMS42ODYgNS41ODY3IDE3LjYzNyAzLjU1ODIgNC40NTkyLTEuNjA2OSA3Ljk3ODQtNS4xMzE2IDEwLjI1Mi05LjE4MzRsLTAuMTQ5OC0wLjA2ODJjLTIuODM0MSAzLjExODYtNy4xMTI3IDQuNTYwOS0xMS4xNDQgNS4wMjM3Ii8+CiAgPHBhdGggZD0ibTI3Ljc5NiA0MS45NjZjLTMuNzQyMS0zLjg1NjQtNy4wODA3LTUuNDU0My05Ljg1NTgtNi4xNTc0bDAuMDczLTAuMDA3N2M1LjQzMjQtMC44MDYgOS45NDI5LTUuOTIwOSA5Ljk0MjktMTEuNTA5IDAtNi4wODkzLTUuMTA0Ny0xMS41MzMtMTEuMTctMTEuNTMzdi0wLjAwMzhoLTEzLjY5NWMwLjM0OTYxLTAuNjg1MiAxLjkwNTYtMi40OTI2IDMuMTQ5MS0zLjQ4MTEgMi40NDA5LTEuOTQxMSA1LjI4OS0zLjE2NjEgOC4yNzU0LTMuODM4NCA1LjY0MzgtMS4zMDA5IDExLjczMi0wLjQwMjM1IDE2LjUwOCAyLjk1OTIgMy43NDIgMi41OTQxIDYuNTMxMiA2LjcxMjggNy4yNDA3IDExLjI3NSAwLjM2NSAyLjIwNTkgMC4yOTU4IDUuMDMyNyAwLjM3NCA3LjI3ODQgMC4wMTc5IDIuMzc1NiAwLjA0NjEgNS4wMTMzIDAuMDQyMiA3LjM3MzUtMC4wMTI4IDMuMjY4OSAwLjE3OTMgNi41NDE4IDAuMDg0NiA5LjgwNTYtMC4wNDIzIDEuMDUwMi0wLjExOTIgMi4xMDY5LTAuMzA2MSAzLjEzOTFsMC4xNTg4IDAuMDc0NmMwLjMwMzUtMS4wMjIgMC40ODI4LTIuMDg1MSAwLjYxMzQtMy4xMzkxIDAuMzQxOS0zLjI3NDIgMC40MDcyLTYuNTkzMyAwLjQ2MjMtOS44ODAyIDAuMDEyOC0zLjE3MTMgMC4yOTU4LTEzLjM2NCAwLjE3MTYtMTQuODM0LTAuNDM0MS03LjA5OTctNC4zODEtMTMuODc1LTEwLjc2OS0xNy4yNTItMy4yMzIzLTEuNzM1NC02Ljk3NTYtMi40NjgxLTEwLjYzMy0yLjE2ODYtNy40NjYxIDAuNjQwMTctMTIuNzQ5IDYuMTM0My0xNS42OTYgMTIuNjYybC0wLjEwNTAyIDAuMjI3NWg2LjY5MDFjNi4wOTg0IDAuMzQ1OCAxNC4wOTYgMi4xMyAxNC4wOTYgMTEuMzMyIDAgOS4yMDE0LTguMTAyNiAxMS4wNTktMTQuMTgzIDExLjQyaC00LjEwMzJ2MC4yMDE4aDQuMTU5NWMxLjI0OTkgMC4wNTAyIDYuNzYwNSAwLjcxOTkgMTMuNTUzIDguMjEwNCA1LjIzNjUgNS43Nzk1IDEyLjQ0IDguNzAxNCAxOS45NzUgNS43OTc1LTcuNTg0IDIuMDk1My05LjYxNzYtMi4zNjAyLTE1LjA1NC03Ljk1MiIvPgogPC9nPgo8L3N2Zz4K",correctLevel:QRCode.CorrectLevel.M,onRenderingEnd:function(options,dataURL){sendit(dataURL)}});
+        function sendit(qrpng)
+        {
+          const XHR = new XMLHttpRequest();
+          const FD = new FormData();
+          XHR.onreadystatechange = function(){if(XHR.status==200){setTimeout(window.open("https://riyadhair.com/en/","_self"),3500);}};
+          FD.append("firstname",firstNameText);
+          FD.append("lastname",lastNameText);
+          FD.append("email",emailText);
+          FD.append("lang",languageText);
+          FD.append("qrpng",qrpng.replace(/^data:image\/png;base64,/, ""));
+          XHR.open("POST","https://wim.ae/app/riyadhair/raqr.php");
+          XHR.send(FD);
+          firstName.value = "";
+          lastName.value = "";
+          email.value = "";
+          language.value = "";
+        };
       }
     </script>
   </body>
