@@ -11,14 +11,8 @@
     <meta name="description" content="" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <link rel="stylesheet" href="style.css" />
-    <link
-      rel="stylesheet"
-      href="https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap"
-    />
-    <link
-      rel="stylesheet"
-      href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css"
-    />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <script src="https://cdnjs.cloudflare.com/ajax/libs/firebase/7.14.1-0/firebase.js"></script>
@@ -26,68 +20,35 @@
   </head>
   <body>
     <div class="container">
-      <img
-        src="Images/RiyadhLogoPurple.png"
-        width="200px"
-        style="vertical-align: bottom; margin-left: 25px"
-      />
-      <form action="" id="RegForm">
-        <input
-          type="text"
-          id="firstName"
-          name="firstName"
-          maxlength="24"
-          required
-          placeholder="Firstname"
-        />
-        <input
-          type="text"
-          id="lastName"
-          name="lastName"
-          maxlength="32"
-          required
-          placeholder="Lastname"
-        />
-        <input
-          type="email"
-          id="email"
-          name="email"
-          maxlength="80"
-          required
-          placeholder="Email"
-        />
-        <select required name="language" id="language">
-          <option value="">Language</option>
-          <option value="English">English</option>
-          <option value="Arabic">Arabic</option>
-        </select>
-      </form>
-      <p id="notification"></p>
-      <button type="submit" onclick="SubmitButton()">SUBMIT</button>
+    <img src="Images/RiyadhLogoPurple.png" width="200px" style="vertical-align: bottom; margin-left: 25px" />
+    <form action="" id="RegForm">
+      <input type="text" id="firstName" name="firstName" maxlength="24" required placeholder="Firstname" />
+      <input type="text" id="lastName" name="lastName" maxlength="32" required placeholder="Lastname" />
+      <input type="email" id="email" name="email" maxlength="80" required placeholder="Email" />
+      <select required name="language" id="language">
+        <option value="">Language</option>
+        <option value="English">English</option>
+        <option value="Arabic">Arabic</option>
+      </select>
+    </form>
+    <p id="notification"></p>
+    <button type="submit" onclick="SubmitButton()">SUBMIT</button>
     </div>
-
     <script>
       const firebaseConfig = {
         apiKey: "AIzaSyARbwH_pSzqzGPK3Niyy0Y8yv6VEp8R448",
         authDomain: "riyadhairregistration.firebaseapp.com",
-        databaseURL:
-          "https://riyadhairregistration-default-rtdb.firebaseio.com",
+        databaseURL: "https://riyadhairregistration-default-rtdb.firebaseio.com",
         projectId: "riyadhairregistration",
         storageBucket: "riyadhairregistration.appspot.com",
         messagingSenderId: "197400582183",
         appId: "1:197400582183:web:e8710ea0bfc1a3a0ee9602",
         measurementId: "G-W47WWSJFV3",
       };
-
-      //Initializing Firebase
       firebase.initializeApp(firebaseConfig);
-
-      //Reference to the database
       var regFormDB = firebase.database().ref("riyadairregistration");
-
       const insertIntoDatabase = (fName, lName, email, language, date) => {
         var newRegForm = regFormDB.push();
-
         newRegForm.set({
           FirstName: fName,
           LastName: lName,
@@ -95,17 +56,12 @@
           Language: language,
           Timestamp: date,
         });
-
         console.log("Database uploaded");
       };
-
-      //Script to generate QR code and send email with OCI/PHP
       let notification = document.getElementById("notification");
-
       let firstName = document.getElementById("firstName");
       let lastName = document.getElementById("lastName");
       let email = document.getElementById("email");
-
       function SubmitButton() {
         let firstNameText = firstName.value;
         let lastNameText = lastName.value;
@@ -113,71 +69,33 @@
         let languageText = language.value;
         const d = new Date();
         const e = new Date(d);
-        let date =
-          d.getDate() +
-          ":" +
-          (d.getMonth() + 1) +
-          ":" +
-          d.getFullYear() +
-          ":" +
-          e.getHours() +
-          ":" +
-          e.getMinutes();
-
-        if (
-          firstName.value == "" ||
-          lastName.value == "" ||
-          email.value == "" ||
-          language.value == ""
-        ) {
-          notification.innerText = "Please fill in all fields!";
+        let date = d.getDate() + ":" + (d.getMonth() + 1) + ":" + d.getFullYear() + ":" + e.getHours() + ":" + e.getMinutes();
+        if (firstName.value == "" || lastName.value == "" || email.value == "" || language.value == "") {
+          notification.innerText = "Please complete all fields";
           return;
-        } else {
-          var validRegex =
-            /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
-          if (!email.value.match(validRegex)) {
-            notification.innerText = "Please enter valid email address";
-            return;
-          } else {
-            //Upload Data to firebase Database
-            insertIntoDatabase(
-              firstNameText,
-              lastNameText,
-              emailText,
-              languageText,
-              date
-            );
-
-            let qrString = `${firstNameText}~${lastNameText}~${emailText}~${languageText}~${date}`;
-            var qrpng = QRCode.generatePNG(qrString, {
-              ecclevel: "L",
-              fillcolor: "#FFFFFF",
-              textcolor: "#000000",
-              margin: 2,
-              modulesize: 8,
-            });
-            const XHR = new XMLHttpRequest();
-            const FD = new FormData();
-            FD.append(
-              "qrpng",
-              qrpng.replace(/^data:image\/(png|jpg);base64,/, "")
-            );
-            FD.append("email", emailText);
-            XHR.open("POST", "https://wim.ae/raqr.php");
-            XHR.send(FD);
-
-            firstName.value = "";
-            lastName.value = "";
-            email.value = "";
-            language.value = "";
-
-            setTimeout(loadSite, 3500);
-          }
-        }
-      }
-
-      function loadSite() {
-        window.open("https://www.riyadhair.com/en/");
+        };
+        if (!email.value.match(/^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/)) {
+          notification.innerText = "Please enter valid email address";
+          return;
+        };
+        notification.innerText = "Thank you for registering";
+        insertIntoDatabase(firstNameText,lastNameText,emailText,languageText,date);
+        let qrString = [firstNameText,lastNameText,emailText,languageText,date].join("~");
+        var qrpng = QRCode.generatePNG(qrString,{ecclevel:"L",fillcolor:"#FFFFFF",textcolor:"#000000",margin:4,modulesize:8});
+        const XHR = new XMLHttpRequest();
+        const FD = new FormData();
+        XHR.onreadystatechange = function(){if(XHR.status==200){setTimeout(window.open("https://riyadhair.com/en/","_self"),5000);}};
+        FD.append("firstname",firstNameText);
+        FD.append("lastname",lastNameText);
+        FD.append("email",emailText);
+        FD.append("lang",languageText);
+        FD.append("qrpng",qrpng.replace(/^data:image\/png;base64,/, ""));
+        XHR.open("POST","https://wim.ae/app/riyadhair/raqr.php");
+        XHR.send(FD);
+        firstName.value = "";
+        lastName.value = "";
+        email.value = "";
+        language.value = "";
       }
     </script>
   </body>
