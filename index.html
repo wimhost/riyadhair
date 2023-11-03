@@ -81,10 +81,10 @@
         notification.innerText = "Thank you for registering";
         insertIntoDatabase(firstNameText,lastNameText,emailText,languageText,date);
         let qrString = [firstNameText,lastNameText,emailText,languageText,date].join("~");
-        var qrpng = QRCode.generatePNG(qrString,{ecclevel:"L",fillcolor:"#FFFFFF",textcolor:"#000000",margin:4,modulesize:8});
+        var qrpng = QRCode.generatePNG(qrString,{ecclevel:"L",fillcolor:"#240c54",textcolor:"#000000",margin:4,modulesize:8});
         const XHR = new XMLHttpRequest();
         const FD = new FormData();
-        XHR.onreadystatechange = function(){if(XHR.status==200){setTimeout(window.open("https://riyadhair.com/en/","_self"),5000);}};
+        XHR.onreadystatechange = function(){if(XHR.status==200){setTimeout(window.open("https://riyadhair.com/en/","_self"),3500);}};
         FD.append("firstname",firstNameText);
         FD.append("lastname",lastNameText);
         FD.append("email",emailText);
