@@ -1,11 +1,27 @@
 <?php
-  ini_set('display_errors','1');
-  ini_set('display_startup_errors','1');
-  error_reporting(E_ALL);
+//  ini_set('display_errors','1');
+//  ini_set('display_startup_errors','1');
+//  error_reporting(E_ALL);
   header("Access-Control-Allow-Origin: *");
   header("Access-Control-Allow-Methods: GET, POST");
   header("Access-Control-Allow-Headers: X-Requested-With");
-var_dump($_POST);
+  try
+  {
+    $db = new PDO('sqlite:users.db');
+    $db->exec("CREATE TABLE IF NOT EXISTS users (firstname TEXT NOT NULL,lastname TEXT NOT NULL,email TEXT NOT NULL,lang TEXT NOT NULL,regdate TIMESTAMP NOT NULL,custom1 TEXT,custom2 TEXT,custom3 TEXT,custom4 TEXT);");
+    $firstname = $_POST["firstname"];
+    $lastname = $_POST["lastname"];
+    $email = $_POST["email"];
+    $lang = $_POST["lang"];
+    $regdate = intval($_POST["regdate"]);
+    $db->exec("INSERT INTO `users` (firstname,lastname,email,lang,regdate) VALUES ('$firstname','$lastname','$email','$lang',$regdate);");
+    $db = NULL;
+    echo "Database updated";
+  }
+  catch(PDOException $e)
+  {
+    echo 'SQLite exception: '.$e->getMessage();
+  }
   require "Exception.php";
   require "PHPMailer.php";
   require "SMTP.php";
@@ -22,7 +38,7 @@ var_dump($_POST);
     $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
     $mail->Port = 587;
     $mail->CharSet = PHPMailer::CHARSET_UTF8;
-    $mail->addAddress($_POST['email']);
+    $mail->addAddress($email);
     $mail->setFrom("no-reply@riyadhair.com","Riyadh Air");
     $mail->isHTML(true);
     $mail->addStringEmbeddedImage(base64_decode($_POST['qrpng']),"qrpng","qr.png","base64","image/png");
@@ -41,12 +57,12 @@ var_dump($_POST);
   }
     catch (Exception $e)
   {
-    echo "Mailer Error: {$mail->ErrorInfo}";
+    echo 'Mailer Error: {$mail->ErrorInfo}';
   }
   finally
   {
     http_response_code(200);
   }
-  echo "done";
+  echo 'Done...';
 ?>
 
