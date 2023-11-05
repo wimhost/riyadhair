@@ -7,24 +7,23 @@
     <meta name="description" content="" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <link rel="stylesheet" href="style.css" />
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
     <script src="easy.qrcode.min.js"></script>
   </head>
   <body>
     <div class="container">
-    <img src="Images/RiyadhLogoPurple.png" width="200px" style="vertical-align: bottom; margin-left: 25px" />
-    <form action="" id="RegForm">
-      <input type="text" id="firstName" name="firstName" maxlength="24" required placeholder="Firstname" />
-      <input type="text" id="lastName" name="lastName" maxlength="32" required placeholder="Lastname" />
-      <input type="email" id="email" name="email" maxlength="80" required placeholder="Email" />
-      <select required name="language" id="language">
-        <option value="">Language</option>
-        <option value="English">English</option>
-        <option value="Arabic">Arabic</option>
-      </select>
-    </form>
-    <p id="notification"></p>
-    <button type="submit" id="SubmitButton">SUBMIT</button>
+      <img src="Images/RiyadhLogoPurple.png" width="200px" style="vertical-align: bottom; margin-left: 25px" />
+      <form action="" id="RegForm">
+        <input type="text" id="firstName" name="firstName" maxlength="24" required placeholder="Firstname" />
+        <input type="text" id="lastName" name="lastName" maxlength="32" required placeholder="Lastname" />
+        <input type="email" id="email" name="email" maxlength="80" required placeholder="Email" />
+        <select required name="language" id="language">
+          <option value="">Language</option>
+          <option value="english">English</option>
+          <option value="arabic">Arabic - العربية</option>
+        </select>
+      </form>
+      <p id="notification"></p>
+      <button type="submit" id="SubmitButton">SUBMIT</button>
     </div>
     <script>
       document.getElementById('SubmitButton').addEventListener('click',SubmitButton);
@@ -35,11 +34,13 @@
         let languageText = document.getElementById("language").value;
         let notification = document.getElementById("notification");
         let regdate = new Date().getTime();
-        if (firstName.value == "" || lastName.value == "" || email.value == "" || language.value == "") {
+        if (firstName.value == "" || lastName.value == "" || email.value == "" || language.value == "")
+        {
           notification.innerText = "Please complete all fields";
           return;
         };
-        if (!email.value.match(/^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/)) {
+        if (!email.value.match(/^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/))
+        {
           notification.innerText = "Please enter a valid email address";
           return;
         };
