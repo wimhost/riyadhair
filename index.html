@@ -11,19 +11,19 @@
   </head>
   <body>
     <div class="container">
-      <img src="Images/RiyadhLogoPurple.png" width="200px" style="vertical-align: bottom; margin-left: 25px" />
-      <form action="" id="RegForm">
-        <input type="text" id="firstName" name="firstName" maxlength="24" required placeholder="Firstname" />
-        <input type="text" id="lastName" name="lastName" maxlength="32" required placeholder="Lastname" />
-        <input type="email" id="email" name="email" maxlength="80" required placeholder="Email" />
-        <select required name="language" id="language">
-          <option value="">Language</option>
-          <option value="english">English</option>
-          <option value="arabic">Arabic - العربية</option>
-        </select>
-      </form>
-      <p id="notification"></p>
-      <button type="submit" id="SubmitButton">SUBMIT</button>
+    <img src="Images/RiyadhLogoPurple.png" width="200px" style="vertical-align: bottom; margin-left: 25px" />
+    <form action="" id="RegForm">
+      <input type="text" id="firstName" name="firstName" maxlength="24" required placeholder="Firstname" />
+      <input type="text" id="lastName" name="lastName" maxlength="32" required placeholder="Lastname" />
+      <input type="email" id="email" name="email" maxlength="80" required placeholder="Email" />
+      <select required name="language" id="language">
+        <option value="">Language</option>
+        <option value="english">English</option>
+        <option value="arabic">Arabic - العربية</option>
+      </select>
+    </form>
+    <p id="notification"></p>
+    <button type="submit" id="SubmitButton">SUBMIT</button>
     </div>
     <script>
       document.getElementById('SubmitButton').addEventListener('click',SubmitButton);
@@ -34,7 +34,7 @@
         let languageText = document.getElementById("language").value;
         let notification = document.getElementById("notification");
         let regdate = new Date().getTime();
-        if (firstName.value == "" || lastName.value == "" || email.value == "" || language.value == "")
+        if (firstName.value==""||lastName.value==""||email.value==""||language.value=="")
         {
           notification.innerText = "Please complete all fields";
           return;
@@ -51,7 +51,7 @@
         {
           const XHR = new XMLHttpRequest();
           const FD = new FormData();
-          XHR.onreadystatechange = function(){if(XHR.status==200){setTimeout(window.open("https://riyadhair.com/en/","_self"),3500);}};
+          XHR.onreadystatechange = function(){if(XHR.status==200){setTimeout(window.open("https://riyadhair.com/"+(languageText=="arabic"?"ar":"en")+"/","_self"),3500);}};
           FD.append("firstname",firstNameText);
           FD.append("lastname",lastNameText);
           FD.append("email",emailText);
