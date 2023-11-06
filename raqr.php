@@ -48,13 +48,13 @@
     {
       case "arabic":
         $mail->Subject = "مرحبا بكم في طيران الرياض في معرض دبي للطيران 2023";
-        $mail->Body = "<div dir='rtl' lang='ar'>عزيزنا،<br/><br/>شكراً لتسجيلك معنا من خلال منصّتنا في معرض دبي للطيران.<br/><br/>يسعدنا أن نرحب بانضمامك إلينا في بداية حقبة جديدة في عالم الطيران، ونتمنى أن تستمتع بالرحلة التي صممناها من أجلك، وتشاركنا اللحظة التاريخية التي يبدأ فيها المستقبل.<br/><br/>استخدم رمز الاستجابة السريعة المخصص من أجلك للدخول.<br/><br/>مع أطيب تحياتنا،<br/><br/>فريق عمل طيران الرياض / عائلة طيران الرياض. <br/><br/>";
+        $mail->Body = "<div dir='rtl' lang='ar'>عزيزنا،<br/><br/>شكراً لتسجيلك معنا من خلال منصّتنا في معرض دبي للطيران.<br/><br/>يسعدنا أن نرحب بانضمامك إلينا في بداية حقبة جديدة في عالم الطيران، ونتمنى أن تستمتع بالرحلة التي صممناها من أجلك، وتشاركنا اللحظة التاريخية التي يبدأ فيها المستقبل.<br/><br/>استخدم رمز الاستجابة السريعة المخصص من أجلك للدخول.<br/><br/>مع أطيب تحياتنا،<br/><br/>فريق عمل طيران الرياض / عائلة طيران الرياض.<br/><br/>";
         break;
       default:
         $mail->Subject = "Welcome to Riyadh Air at the Dubai Air Show 2023";
         $mail->Body = "<div dir='ltr' lang='en'>Hello {$_POST['firstname']} {$_POST['lastname']},<br/><br/>Thank you for registering at our Dubai Air Show venue.<br/><br/>Riyadh Air welcomes you to a brand-new chapter in the history of air travel.<br/><br/>We hope you enjoy our curated walkthrough and we can’t wait to watch you see the future take flight.<br/><br/>Enclosed below is the personalized QR code for your admission.<br/><br/>Warm regards,<br/><br/>Team Riyadh Air<br/><br/>";
     }
-    $mail->Body .= "<img src='cid:qrpng' alt='' /><br/><img src='cid:ralogo' alt='' /><br/></div>";
+    $mail->Body .= "</div><div><img src='cid:qrpng' alt='' /><br/><img src='cid:ralogo' alt='' /><br/></div>";
     $mail->send();
   }
     catch (Exception $e)
